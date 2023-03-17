@@ -1,0 +1,85 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Game {
+    private Deck deck;
+    private Scanner scanner;
+
+    public Game() {
+        deck = new Deck();
+        scanner = new Scanner(System.in);
+    }
+
+    public void start() {
+        System.out.println("Bienvenido al juego de poker!");
+
+        try {
+            deck.shuffle();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
+        while (true) {
+            showMenu();
+
+            int option = scanner.nextInt();
+            scanner.nextLine(); 
+
+            try {
+                switch (option) {
+                    case 1:
+                        playHead();
+                        break;
+                    case 2:
+                        playPick();
+                        break;
+                    case 3:
+                        playHand();
+                        break;
+                    case 4:
+                        System.out.println("Gracias por jugar!");
+                        return;
+                    default:
+                        throw new Exception("Opción no válida");
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void showMenu() {
+        System.out.println("--------------------");
+        System.out.println("Seleccione una opción:");
+        System.out.println("1 - Jugar Head");
+        System.out.println("2 - Jugar Pick");
+        System.out.println("3 - Jugar Hand");
+        System.out.println("4 - Salir");
+        System.out.println("--------------------");
+    }
+    
+
+    private void playHead() throws Exception {
+        Card card = deck.head();
+        System.out.printf("%s,%s,%s\n", card.getSuit(), card.getColor(), card.getValue());
+        System.out.printf("Quedan %d cartas en deck\n", deck.getNumberOfCards());
+    }
+
+    private void playPick() throws Exception {
+        Card card = deck.pick();
+        System.out.printf("%s,%s,%s\n", card.getSuit(), card.getColor(), card.getValue());
+        System.out.printf("Quedan %d cartas en deck\n", deck.getNumberOfCards());
+        return;
+    }
+
+    private void playHand() throws Exception {
+        ArrayList<Card> hand = deck.hand();
+
+        for (Card card : hand) {
+            System.out.printf("%s,%s,%s\n", card.getSuit(), card.getColor(), card.getValue());
+        }
+
+        System.out.printf("Quedan %d cartas en deck\n", deck.getNumberOfCards());
+    }
+}
