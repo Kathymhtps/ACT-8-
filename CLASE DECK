@@ -1,0 +1,56 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Deck {
+
+    private ArrayList<Card> cards;
+
+    public Deck() {
+        cards = new ArrayList<Card>();
+        for (String suit : Card.suits) {
+            for (String value : Card.values) {
+                cards.add(new Card(suit, value));
+            }
+        }
+    }
+    
+
+    public void shuffle() {
+        Collections.shuffle(cards);
+        System.out.println("Se mezcló el Deck.");
+    }
+
+    public Card head() {
+        Card card = cards.remove(0);
+        System.out.println(card.toString() + "\nQuedan " + cards.size() + " cartas en deck.");
+        return card;
+    }
+
+    public Card pick() {
+        int index = (int) (Math.random() * cards.size());
+        Card card = cards.remove(index);
+        System.out.println(card.toString() + "\nQuedan " + cards.size() + " cartas en deck.");
+        return card;
+        
+    }
+
+    public ArrayList<Card> hand() {
+        ArrayList<Card> hand = new ArrayList<Card>();
+        for (int i = 0; i < 5; i++) {
+            Card card = cards.remove(0);
+            hand.add(card);
+            System.out.println(card.toString());
+        }
+        System.out.println("Quedan " + cards.size() + " cartas en deck.");
+        return hand;
+    }
+    public int getNumberOfCards() {
+    return cards.size();
+    }
+    public int getSize() {
+    return cards.size();
+}
+
+}
+
+
