@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Deck {
 
@@ -44,6 +45,20 @@ public class Deck {
         System.out.println("Quedan " + cards.size() + " cartas en deck.");
         return hand;
     }
+    public List<Card> cambio(int numberOfCardsToChange) throws Exception {
+    if (numberOfCardsToChange < 0 || numberOfCardsToChange > 5) {
+        throw new Exception("Número de cartas a cambiar no válido");
+    }
+    List<Card> changedCards = new ArrayList<>();
+    for (int i = 0; i < numberOfCardsToChange; i++) {
+        Card card = pick();
+        changedCards.add(card);
+        System.out.printf("%s,%s,%s\n", card.getSuit(), card.getColor(), card.getValue());
+    }
+    System.out.printf("Quedan %d cartas en el deck.\n", getNumberOfCards());
+    return changedCards;
+}
+
     public int getNumberOfCards() {
     return cards.size();
     }
